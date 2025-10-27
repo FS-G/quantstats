@@ -361,7 +361,7 @@ def html(
         dd = _stats.to_drawdown_series(returns)
         dd_info = _stats.drawdown_details(dd).sort_values(
             by="max drawdown", ascending=True
-        )[:10]
+        )[:5]
         dd_info = dd_info[["start", "end", "max drawdown", "days"]]
         dd_info.columns = ["Started", "Recovered", "Drawdown", "Days"]
         tpl = tpl.replace("{{dd_info}}", _html_table(dd_info, False))
@@ -405,39 +405,11 @@ def html(
     )
     tpl = tpl.replace("{{returns}}", _embed_figure(figfile, figfmt))
 
-    # Log returns plot for better visualization of performance
-    figfile = _utils._file_stream()
-    _plots.log_returns(
-        returns,
-        benchmark,
-        grayscale=grayscale,
-        figsize=(8, 4),
-        subtitle=False,
-        savefig={"fname": figfile, "format": figfmt},
-        show=False,
-        ylabel="",
-        compound=compounded,
-        prepare_returns=False,
-    )
-    tpl = tpl.replace("{{log_returns}}", _embed_figure(figfile, figfmt))
+    # Log returns plot REMOVED per user request
+    tpl = tpl.replace("{{log_returns}}", "")
 
-    # Volatility-matched returns plot (only if benchmark exists)
-    if benchmark is not None:
-        figfile = _utils._file_stream()
-        _plots.returns(
-            returns,
-            benchmark,
-            match_volatility=True,
-            grayscale=grayscale,
-            figsize=(8, 4),
-            subtitle=False,
-            savefig={"fname": figfile, "format": figfmt},
-            show=False,
-            ylabel="",
-            compound=compounded,
-            prepare_returns=False,
-        )
-        tpl = tpl.replace("{{vol_returns}}", _embed_figure(figfile, figfmt))
+    # Volatility-matched returns plot REMOVED per user request
+    tpl = tpl.replace("{{vol_returns}}", "")
 
     # Yearly returns comparison chart
     figfile = _utils._file_stream()
@@ -505,21 +477,8 @@ def html(
         )
         tpl = tpl.replace("{{rolling_beta}}", _embed_figure(figfile, figfmt))
 
-    # Rolling volatility analysis
-    figfile = _utils._file_stream()
-    _plots.rolling_volatility(
-        returns,
-        benchmark,
-        grayscale=grayscale,
-        figsize=(8, 3),
-        subtitle=False,
-        savefig={"fname": figfile, "format": figfmt},
-        show=False,
-        ylabel="",
-        period=win_half_year,
-        periods_per_year=win_year,
-    )
-    tpl = tpl.replace("{{rolling_vol}}", _embed_figure(figfile, figfmt))
+    # Rolling volatility analysis REMOVED per user request
+    tpl = tpl.replace("{{rolling_vol}}", "")
 
     # Rolling Sharpe ratio analysis
     figfile = _utils._file_stream()
@@ -536,20 +495,8 @@ def html(
     )
     tpl = tpl.replace("{{rolling_sharpe}}", _embed_figure(figfile, figfmt))
 
-    # Rolling Sortino ratio analysis
-    figfile = _utils._file_stream()
-    _plots.rolling_sortino(
-        returns,
-        grayscale=grayscale,
-        figsize=(8, 3),
-        subtitle=False,
-        savefig={"fname": figfile, "format": figfmt},
-        show=False,
-        ylabel="",
-        period=win_half_year,
-        periods_per_year=win_year,
-    )
-    tpl = tpl.replace("{{rolling_sortino}}", _embed_figure(figfile, figfmt))
+    # Rolling Sortino ratio analysis REMOVED per user request
+    tpl = tpl.replace("{{rolling_sortino}}", "")
 
     # Drawdown periods analysis
     figfile = _utils._file_stream()
@@ -599,78 +546,17 @@ def html(
     )
     tpl = tpl.replace("{{dd_plot}}", _embed_figure(figfile, figfmt))
 
-    # Monthly returns heatmap
-    figfile = _utils._file_stream()
+    # Monthly returns heatmap REMOVED per user request
     if isinstance(returns, _pd.Series):
-        _plots.monthly_heatmap(
-            returns,
-            benchmark,
-            grayscale=grayscale,
-            figsize=(8, 4),
-            cbar=False,
-            returns_label=returns.name,
-            savefig={"fname": figfile, "format": figfmt},
-            show=False,
-            ylabel="",
-            compounded=compounded,
-            active=active,
-        )
-        tpl = tpl.replace("{{monthly_heatmap}}", _embed_figure(figfile, figfmt))
+        tpl = tpl.replace("{{monthly_heatmap}}", "")
     elif isinstance(returns, _pd.DataFrame):
-        # Handle multiple strategy columns
-        embed = []
-        for col in returns.columns:
-            _plots.monthly_heatmap(
-                returns[col],
-                benchmark,
-                grayscale=grayscale,
-                figsize=(8, 4),
-                cbar=False,
-                returns_label=col,
-                savefig={"fname": figfile, "format": figfmt},
-                show=False,
-                ylabel="",
-                compounded=compounded,
-                active=active,
-            )
-            embed.append(figfile)
-        tpl = tpl.replace("{{monthly_heatmap}}", _embed_figure(embed, figfmt))
+        tpl = tpl.replace("{{monthly_heatmap}}", "")
 
-    # Returns distribution analysis
-    figfile = _utils._file_stream()
-
+    # Returns distribution analysis REMOVED per user request
     if isinstance(returns, _pd.Series):
-        _plots.distribution(
-            returns,
-            grayscale=grayscale,
-            figsize=(8, 4),
-            subtitle=False,
-            title=returns.name,
-            savefig={"fname": figfile, "format": figfmt},
-            show=False,
-            ylabel="",
-            compounded=compounded,
-            prepare_returns=False,
-        )
-        tpl = tpl.replace("{{returns_dist}}", _embed_figure(figfile, figfmt))
+        tpl = tpl.replace("{{returns_dist}}", "")
     elif isinstance(returns, _pd.DataFrame):
-        # Handle multiple strategy columns
-        embed = []
-        for col in returns.columns:
-            _plots.distribution(
-                returns[col],
-                grayscale=grayscale,
-                figsize=(8, 4),
-                subtitle=False,
-                title=col,
-                savefig={"fname": figfile, "format": figfmt},
-                show=False,
-                ylabel="",
-                compounded=compounded,
-                prepare_returns=False,
-            )
-            embed.append(figfile)
-        tpl = tpl.replace("{{returns_dist}}", _embed_figure(embed, figfmt))
+        tpl = tpl.replace("{{returns_dist}}", "")
 
     # Clean up any remaining template placeholders
     tpl = _regex.sub(r"\{\{(.*?)\}\}", "", tpl)
