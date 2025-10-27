@@ -1,6 +1,7 @@
 # import libraries
 import quantstats as qs
 import pandas as pd
+import os
 
 
 # define column names
@@ -22,8 +23,7 @@ STRATEGY_TITLE = f'{COMPANY_NAME} Systematic Macro ASM'
 
 
 
+# create results directory if it doesn't exist
+os.makedirs('results', exist_ok=True)
 
-
-
-
-qs.reports.html(df[RETURNS_COL], STOCK_TICKER, output = "report.html", title = F"{COMPANY_NAME} Company", strategy_title = STRATEGY_TITLE, benchmark_title = STOCK_TICKER)
+qs.reports.html(df[RETURNS_COL], STOCK_TICKER, output = "results/report.html", title = F"{COMPANY_NAME} Company", strategy_title = STRATEGY_TITLE, benchmark_title = STOCK_TICKER)
