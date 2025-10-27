@@ -218,6 +218,7 @@ def html(
 
     # Handle strategy title - can be single string or list for multiple columns
     strategy_title = kwargs.get("strategy_title", "Strategy")
+    company_name = kwargs.get("company_name", "Company")
     if isinstance(returns, _pd.DataFrame):
         if len(returns.columns) > 1 and isinstance(strategy_title, str):
             strategy_title = list(returns.columns)
@@ -234,9 +235,9 @@ def html(
             elif isinstance(benchmark, _pd.DataFrame):
                 benchmark_title = benchmark[benchmark.columns[0]].name
 
-        # Update template with benchmark information
+        # Update template with benchmark information - format: Benchmark is {SYMBOL} vs {STRATEGY}
         tpl = tpl.replace(
-            "{{benchmark_title}}", f"Benchmark is {benchmark_title.upper()} | "
+            "{{benchmark_title}}", f"Benchmark is {benchmark_title.upper()} vs {company_name} Capital Management ({strategy_title.upper()})"
         )
         # Store original benchmark before any alignment for accurate EOY calculations
         # This preserves the full benchmark data including non-trading days
@@ -257,12 +258,20 @@ def html(
     else:
         benchmark_title = None
         benchmark_original = None
+        # When no benchmark, just show the strategy title
+        tpl = tpl.replace(
+            "{{benchmark_title}}", f"{strategy_title.upper()}"
+        )
 
     # Format date range for display in template
     date_range = returns.index.strftime("%e %b, %Y")
     tpl = tpl.replace("{{date_range}}", date_range[0] + " - " + date_range[-1])
     tpl = tpl.replace("{{title}}", title)
     tpl = tpl.replace("{{v}}", __version__)
+    
+    # Handle logo replacement
+    logo = kwargs.get("logo", "")
+    tpl = tpl.replace("{{logo}}", logo)
 
     # Set names for data series to be used in charts and tables
     if benchmark is not None:
