@@ -297,6 +297,35 @@ def html(
         strategy_title=strategy_title,
     )[2:]
 
+    # Filter to only show required metrics
+    # Note: The index contains the metric names as defined in the metrics function
+    # but without the % suffix due to the column cleaning on line 1538
+    required_metrics = [
+        "Risk-Free Rate",
+        "Time in Market",
+        "Cumulative Return",
+        "CAGR﹪",  # Note: This has a special fullwidth percent character
+        "Sharpe",
+        "Prob. Sharpe Ratio",
+        "Smart Sharpe",
+        "Sortino",
+        "Smart Sortino",
+        "Sortino/√2",
+        "Smart Sortino/√2",
+        "Omega",
+        "Max Drawdown",
+        "Longest DD Days",
+        "Volatility (ann.)",
+        "R^2",
+        "Information Ratio",
+        "Calmar",
+        "Skew"
+    ]
+    # Filter the DataFrame to only include required metrics
+    # Use .loc to preserve order
+    available_metrics = [m for m in required_metrics if m in mtrx.index]
+    mtrx = mtrx.loc[available_metrics]
+
     # Format metrics table for HTML display
     mtrx.index.name = "Metric"
     tpl = tpl.replace("{{metrics}}", _html_table(mtrx))
