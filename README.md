@@ -4,7 +4,7 @@ This project uses QuantStats to generate comprehensive portfolio performance rep
 
 ## Prerequisites
 
-- Python 3.7 or higher
+- Python 3.10 or higher
 - Git (for cloning the repository)
 
 ## Setup Instructions
@@ -22,7 +22,7 @@ Create a virtual environment in the project directory:
 
 **On Windows:**
 ```bash
-python -m venv venv
+python -m venv ./venv
 ```
 
 **On macOS/Linux:**
@@ -34,7 +34,7 @@ python3 -m venv venv
 
 **On Windows:**
 ```bash
-.\venv\Scripts\activate
+./venv/Scripts/activate
 ```
 
 **On macOS/Linux:**
@@ -80,15 +80,46 @@ df = pd.read_csv('data/returns.csv')  # Update this path if needed
 
 ## Running the Report
 
-Once everything is set up, run the analysis:
+Once everything is set up, run the analysis. The script accepts optional command-line arguments for customization:
+
+### Basic Usage (with defaults)
 
 ```bash
 python run.py
 ```
 
-This will:
+This will use the default values:
+- **Company Name**: ABC
+- **Stock Ticker**: SPY
+
+### Advanced Usage (with custom arguments)
+
+You can pass custom arguments using `--ticker` and `--company` flags:
+
+```bash
+python run.py --ticker AAPL --company Apple
+```
+
+```bash
+python run.py --ticker MSFT --company "Microsoft Corporation"
+```
+
+**Arguments:**
+- `--ticker`: Stock ticker symbol for benchmark comparison (default: SPY)
+- `--company`: Company name to display in the report (default: ABC)
+
+**Examples:**
+```bash
+# Generate report for Tesla with TSLA benchmark
+python run.py --ticker TSLA --company Tesla
+
+# Generate report for Amazon with QQQ benchmark
+python run.py --ticker QQQ --company Amazon
+```
+
+The script will:
 - Load your returns data
-- Compare it with the benchmark (SPY by default)
+- Compare it with the specified benchmark
 - Generate a comprehensive HTML report
 
 ## Output
@@ -105,11 +136,23 @@ You can open this file in any web browser to view:
 
 ## Configuration
 
-You can customize the report by modifying variables in `run.py`:
+You can customize the report in two ways:
 
+### 1. Command-Line Arguments (Recommended)
+
+Pass arguments when running the script:
+```bash
+python run.py --ticker AAPL --company "Your Company Name"
+```
+
+See the [Running the Report](#running-the-report) section for details.
+
+### 2. Modify Variables in run.py
+
+Alternatively, you can modify variables in `run.py`:
 - `COMPANY_NAME`: Your company name
 - `STOCK_TICKER`: Ticker symbol for the benchmark (default: 'SPY')
-- `STRATEGY_TITLE`: Custom title for your strategy
+- `STRATEGY_TITLE`: Custom title for your strategy (auto-generated from COMPANY_NAME)
 - `DATE_COL`: Name of the date column in your data
 - `RETURNS_COL`: Name of the returns column in your data
 

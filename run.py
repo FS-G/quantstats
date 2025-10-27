@@ -2,11 +2,18 @@
 import quantstats as qs
 import pandas as pd
 import os
+import argparse
 
 
 # define column names
 DATE_COL = 'Date'
 RETURNS_COL = 'return'
+
+# parse command-line arguments
+parser = argparse.ArgumentParser(description='Generate portfolio performance report with QuantStats')
+parser.add_argument('--ticker', type=str, default='SPY', help='Stock ticker symbol for benchmark (default: SPY)')
+parser.add_argument('--company', type=str, default='ABC', help='Company name (default: ABC)')
+args = parser.parse_args()
 
 # load custom data
 df = pd.read_csv('data/returns.csv')
@@ -16,9 +23,9 @@ df[DATE_COL] = pd.to_datetime(df[DATE_COL])
 df.sort_values(by = DATE_COL, inplace = True)
 df.set_index(DATE_COL, inplace = True)
 
-STOCK_TICKER = 'SPY'
-BENCHMARK_TICKER = 'SPY'
-COMPANY_NAME = 'ABC'
+STOCK_TICKER = args.ticker
+BENCHMARK_TICKER = args.ticker
+COMPANY_NAME = args.company
 STRATEGY_TITLE = f'{COMPANY_NAME} Systematic Macro ASM'
 
 
