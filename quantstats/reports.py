@@ -237,7 +237,7 @@ def html(
 
         # Update template with benchmark information - format: Benchmark is {SYMBOL} vs {STRATEGY}
         tpl = tpl.replace(
-            "{{benchmark_title}}", f"Benchmark is {benchmark_title.upper()} vs {company_name} Capital Management ({strategy_title.upper()})"
+            "{{benchmark_title}}", f"Benchmark is {benchmark_title.upper()} vs {company_name} Systematic Macro ({strategy_title.upper()})"
         )
         # Store original benchmark before any alignment for accurate EOY calculations
         # This preserves the full benchmark data including non-trading days
