@@ -434,7 +434,8 @@ def html(
         tpl = tpl.replace("{{dd_info}}", dd_html_table)
 
     # Get active returns setting for plots
-    active = kwargs.get("active_returns", False)
+    # Show daily active returns by default (can be overridden via active_returns=False)
+    active = kwargs.get("active_returns", True)
 
     # Generate all the performance plots and embed them in the HTML
     # plots
@@ -694,7 +695,7 @@ def full(
     if benchmark is not None:
         benchmark_title = kwargs.get("benchmark_title", "Benchmark")
     strategy_title = kwargs.get("strategy_title", "Strategy")
-    active = kwargs.get("active_returns", False)
+    active = kwargs.get("active_returns", True)
 
     # Handle multiple strategy columns
     if isinstance(returns, _pd.DataFrame):
@@ -904,7 +905,7 @@ def basic(
     if benchmark is not None:
         benchmark_title = kwargs.get("benchmark_title", "Benchmark")
     strategy_title = kwargs.get("strategy_title", "Strategy")
-    active = kwargs.get("active_returns", False)
+    active = kwargs.get("active_returns", True)
 
     # Handle multiple strategy columns
     if isinstance(returns, _pd.DataFrame):
