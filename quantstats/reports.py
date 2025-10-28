@@ -409,7 +409,7 @@ def html(
         dd = _stats.to_drawdown_series(returns)
         dd_info = _stats.drawdown_details(dd).sort_values(
             by="max drawdown", ascending=True
-        )[:5]
+        )[:10]
         dd_info = dd_info[["start", "end", "max drawdown", "days"]]
         dd_info.columns = ["Started", "Recovered", "Drawdown", "Days"]
         tpl = tpl.replace("{{dd_info}}", _html_table(dd_info, False))
@@ -754,7 +754,7 @@ def full(
 
         # Display worst drawdowns analysis
         if isinstance(dd, _pd.Series):
-            iDisplay(iHTML('<h4 style="margin-bottom:20px">Worst 5 Drawdowns</h4>'))
+            iDisplay(iHTML('<h4 style="margin-bottom:20px">Worst 10 Drawdowns</h4>'))
             if dd_info.empty:
                 iDisplay(iHTML("<p>(no drawdowns)</p>"))
             else:
@@ -764,7 +764,7 @@ def full(
             for ptf, dd_info in dd_info_dict.items():
                 iDisplay(
                     iHTML(
-                        '<h4 style="margin-bottom:20px">%s - Worst 5 Drawdowns</h4>'
+                        '<h4 style="margin-bottom:20px">%s - Worst 10 Drawdowns</h4>'
                         % ptf
                     )
                 )
@@ -790,7 +790,7 @@ def full(
             strategy_title=strategy_title,
         )
         print("\n\n")
-        print("[Worst 5 Drawdowns]\n")
+        print("[Worst 10 Drawdowns]\n")
 
         # Display drawdowns in tabular format
         if isinstance(dd, _pd.Series):
