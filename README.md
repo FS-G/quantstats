@@ -1,3 +1,27 @@
+## Quick start on Windows (start.bat)
+
+For a one-command setup and run on Windows, use the provided `start.bat`.
+
+What it does:
+- Creates a virtual environment in `venv/` if it does not exist
+- Upgrades `pip` and installs dependencies from `requirements.txt`
+- Runs `run.py` with any extra arguments you pass
+
+Usage:
+```bat
+start.bat --ticker SPY --company "Autan"
+```
+
+Notes:
+- You can pass any `run.py` arguments after the script name.
+- Developers can still run via terminal manually if preferred:
+  ```bat
+  python -m venv venv
+  .\venv\Scripts\activate
+  pip install -r requirements.txt
+  python run.py --ticker SPY --company "Autan"
+  ```
+
 # QuantStats Portfolio Analytics
 
 This project uses QuantStats to generate comprehensive portfolio performance reports from custom returns data.
