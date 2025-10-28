@@ -300,31 +300,50 @@ def html(
     # Filter to only show required metrics
     # Note: The index contains the metric names as defined in the metrics function
     # but without the % suffix due to the column cleaning on line 1538
+    # Restrict metrics to the exact set and order requested by the user
     required_metrics = [
-        "Risk-Free Rate",
-        "Time in Market",
         "Cumulative Return",
-        "CAGR﹪",  # Note: This has a special fullwidth percent character
-        "Sharpe",
-        "Prob. Sharpe Ratio",
-        "Smart Sharpe",
-        "Sortino",
-        "Smart Sortino",
-        "Sortino/√2",
-        "Smart Sortino/√2",
-        "Omega",
-        "Max Drawdown",
-        "Longest DD Days",
+        "CAGR﹪",
         "Volatility (ann.)",
-        "R^2",
-        "Information Ratio",
+        "Sharpe",
+        "Sortino",
         "Calmar",
-        "Skew"
+        "Max Drawdown",
+        # Average drawdown can appear with or without % in index
+        "Avg. Drawdown",
+        "Avg. Drawdown %",
+        "Avg. Drawdown Days",
+        "Longest DD Days",
+        "Skew",
+        "Kurtosis",
+        "Kelly Criterion",
+        # VaR label variants
+        "Daily Value-at-Risk",
+        "Daily Value-at-Risk ",
+        "Profit Factor",
+        # Win rate label variants
+        "Win Days %",
+        "Win Days",
+        "Win Month %",
+        "Win Month",
+        "Beta",
+        "Alpha",
+        "Correlation",
     ]
     # Filter the DataFrame to only include required metrics
     # Use .loc to preserve order
     available_metrics = [m for m in required_metrics if m in mtrx.index]
     mtrx = mtrx.loc[available_metrics]
+
+    # Rename some index entries for cleaner labels
+    index_renames = {
+        "Win Days %": "Win Days",
+        "Win Month %": "Win Month",
+        "Avg. Drawdown %": "Avg. Drawdown",
+        "Daily Value-at-Risk ": "Daily Value-at-Risk",
+        "Correlation": "Correlation to SPY",
+    }
+    mtrx.rename(index={k: v for k, v in index_renames.items() if k in mtrx.index}, inplace=True)
 
     # Format metrics table for HTML display
     mtrx.index.name = "Metric"
