@@ -595,11 +595,40 @@ def html(
     )
     tpl = tpl.replace("{{dd_plot}}", _embed_figure(figfile, figfmt))
 
-    # Monthly returns heatmap REMOVED per user request
+    # Monthly returns heatmap
+    figfile = _utils._file_stream()
     if isinstance(returns, _pd.Series):
-        tpl = tpl.replace("{{monthly_heatmap}}", "")
+        _plots.monthly_heatmap(
+            returns,
+            benchmark,
+            grayscale=grayscale,
+            figsize=(8, 4),
+            savefig={"fname": figfile, "format": figfmt},
+            show=False,
+            ylabel=False,
+            compounded=compounded,
+            active=active,
+        )
+        tpl = tpl.replace("{{monthly_heatmap}}", _embed_figure(figfile, figfmt))
     elif isinstance(returns, _pd.DataFrame):
-        tpl = tpl.replace("{{monthly_heatmap}}", "")
+        # Handle multiple strategy columns
+        embed = []
+        for col in returns.columns:
+            figfile_multi = _utils._file_stream()
+            _plots.monthly_heatmap(
+                returns[col],
+                benchmark,
+                grayscale=grayscale,
+                figsize=(8, 4),
+                savefig={"fname": figfile_multi, "format": figfmt},
+                show=False,
+                ylabel=False,
+                returns_label=col,
+                compounded=compounded,
+                active=active,
+            )
+            embed.append(figfile_multi)
+        tpl = tpl.replace("{{monthly_heatmap}}", _embed_figure(embed, figfmt))
 
     # Returns distribution analysis REMOVED per user request
     if isinstance(returns, _pd.Series):
