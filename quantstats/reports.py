@@ -434,8 +434,7 @@ def html(
         tpl = tpl.replace("{{dd_info}}", dd_html_table)
 
     # Get active returns setting for plots
-    # Show daily active returns by default (can be overridden via active_returns=False)
-    active = kwargs.get("active_returns", True)
+    active = kwargs.get("active_returns", False)
 
     # Generate all the performance plots and embed them in the HTML
     # plots
@@ -603,9 +602,11 @@ def html(
             benchmark,
             grayscale=grayscale,
             figsize=(8, 4),
+            cbar=False,
+            returns_label=returns.name,
             savefig={"fname": figfile, "format": figfmt},
             show=False,
-            ylabel=False,
+            ylabel="",
             compounded=compounded,
             active=active,
         )
@@ -614,20 +615,20 @@ def html(
         # Handle multiple strategy columns
         embed = []
         for col in returns.columns:
-            figfile_multi = _utils._file_stream()
             _plots.monthly_heatmap(
                 returns[col],
                 benchmark,
                 grayscale=grayscale,
                 figsize=(8, 4),
-                savefig={"fname": figfile_multi, "format": figfmt},
-                show=False,
-                ylabel=False,
+                cbar=False,
                 returns_label=col,
+                savefig={"fname": figfile, "format": figfmt},
+                show=False,
+                ylabel="",
                 compounded=compounded,
                 active=active,
             )
-            embed.append(figfile_multi)
+            embed.append(figfile)
         tpl = tpl.replace("{{monthly_heatmap}}", _embed_figure(embed, figfmt))
 
     # Returns distribution analysis REMOVED per user request
