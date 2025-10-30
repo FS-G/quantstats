@@ -1,0 +1,8 @@
+parameter,value,description
+ticker,ABC,"Stock ticker symbol for benchmark"
+company,Autan,"Company name for the report"
+date_col,Date,"Column name for date in returns CSV"
+returns_col,return,"Column name for returns in CSV"
+data_file,data/returns.csv,"Path to returns data file"
+output_file,results/report.html,"Output path for generated HTML report"
+logo_path,logo/logo.svg,"Path to logo SVG file"
