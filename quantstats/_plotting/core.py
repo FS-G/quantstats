@@ -214,7 +214,7 @@ def plot_returns_bars(
 
     # use a more precise date string for the x axis locations in the toolbar
     fig.suptitle(
-        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="black"
+        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="#325C81"
     )
 
     # Add subtitle with date range if enabled
@@ -282,7 +282,7 @@ def plot_returns_bars(
     ax.set_xlabel("")
     if ylabel:
         ax.set_ylabel(
-            "Returns", fontname=fontname, fontweight="bold", fontsize=12, color="black"
+            "Returns", fontname=fontname, fontweight="bold", fontsize=12, color="#325C81"
         )
         ax.yaxis.set_label_coords(-0.1, 0.5)
 
@@ -456,7 +456,7 @@ def plot_timeseries(
 
     # Set main title
     fig.suptitle(
-        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="black"
+        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="#325C81"
     )
 
     # Add subtitle with date range if enabled
@@ -535,7 +535,7 @@ def plot_timeseries(
     ax.set_xlabel("")
     if ylabel:
         ax.set_ylabel(
-            ylabel, fontname=fontname, fontweight="bold", fontsize=12, color="black"
+            ylabel, fontname=fontname, fontweight="bold", fontsize=12, color="#325C81"
         )
     ax.yaxis.set_label_coords(-0.1, 0.5)
 
@@ -665,7 +665,7 @@ def plot_histogram(
 
     # Set main title
     fig.suptitle(
-        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="black"
+        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="#325C81"
     )
 
     # Add subtitle with date range if enabled
@@ -794,7 +794,7 @@ def plot_histogram(
             fontname=fontname,
             fontweight="bold",
             fontsize=12,
-            color="black",
+            color="#325C81",
         )
     else:
         ax.set_ylabel("")
@@ -952,7 +952,7 @@ def plot_rolling_stats(
 
     # Set main title
     fig.suptitle(
-        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="black"
+        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="#325C81"
     )
 
     # Add subtitle with date range if enabled
@@ -980,7 +980,7 @@ def plot_rolling_stats(
     # Configure y-axis label
     if ylabel:
         ax.set_ylabel(
-            ylabel, fontname=fontname, fontweight="bold", fontsize=12, color="black"
+            ylabel, fontname=fontname, fontweight="bold", fontsize=12, color="#325C81"
         )
         ax.yaxis.set_label_coords(-0.1, 0.5)
 
@@ -1102,7 +1102,7 @@ def plot_rolling_beta(
 
     # Set main title
     fig.suptitle(
-        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="black"
+        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="#325C81"
     )
 
     # Add subtitle with date range if enabled
@@ -1194,7 +1194,7 @@ def plot_rolling_beta(
     # Configure y-axis label
     if ylabel:
         ax.set_ylabel(
-            "Beta", fontname=fontname, fontweight="bold", fontsize=12, color="black"
+            "Beta", fontname=fontname, fontweight="bold", fontsize=12, color="#325C81"
         )
         ax.yaxis.set_label_coords(-0.1, 0.5)
 
@@ -1319,7 +1319,7 @@ def plot_longest_drawdowns(
         fontweight="bold",
         fontname=fontname,
         fontsize=14,
-        color="black",
+        color="#325C81",
     )
 
     # Add subtitle with date range if enabled
@@ -1371,7 +1371,7 @@ def plot_longest_drawdowns(
             fontname=fontname,
             fontweight="bold",
             fontsize=12,
-            color="black",
+            color="#325C81",
         )
         ax.yaxis.set_label_coords(-0.1, 0.5)
 
@@ -1496,7 +1496,7 @@ def plot_distribution(
     else:
         title = "Return Quantiles"
     fig.suptitle(
-        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="black"
+        title, y=0.94, fontweight="bold", fontname=fontname, fontsize=14, color="#325C81"
     )
 
     # Add subtitle with date range if enabled
@@ -1536,7 +1536,7 @@ def plot_distribution(
     # Configure y-axis label
     if ylabel:
         ax.set_ylabel(
-            "Returns", fontname=fontname, fontweight="bold", fontsize=12, color="black"
+            "Returns", fontname=fontname, fontweight="bold", fontsize=12, color="#325C81"
         )
         ax.yaxis.set_label_coords(-0.1, 0.5)
 
@@ -1641,7 +1641,7 @@ def plot_table(
     # Set title if provided
     if title != "":
         ax.set_title(
-            title, fontweight="bold", fontsize=14, color="black", loc=title_loc
+            title, fontweight="bold", fontsize=14, color="#325C81", loc=title_loc
         )
 
     # Create table
@@ -1664,19 +1664,19 @@ def plot_table(
     # Style individual cells
     for (row, col), cell in the_table.get_celld().items():
         cell.set_height(0.08)
-        cell.set_text_props(color="black")
+        cell.set_text_props(color="#325C81")
         cell.set_edgecolor("#dddddd")
         # Header row styling
         if row == 0 and header:
             cell.set_edgecolor("black")
             cell.set_facecolor("black")
             cell.set_linewidth(2)
-            cell.set_text_props(weight="bold", color="black")
+            cell.set_text_props(weight="bold", color="#325C81")
         # First column styling for vertical orientation
         elif col == 0 and "vertical" in orient:
             cell.set_edgecolor("#dddddd")
             cell.set_linewidth(1)
-            cell.set_text_props(weight="bold", color="black")
+            cell.set_text_props(weight="bold", color="#325C81")
         # Data row styling
         elif row > 1:
             cell.set_linewidth(1)

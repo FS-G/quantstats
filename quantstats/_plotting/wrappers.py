@@ -183,7 +183,7 @@ def snapshot(
             "`strategy_col` parameter.",
             ha="left",
             fontsize=11,
-            color="black",
+            color="#325C81",
             alpha=0.6,
             linespacing=1.5,
         )
@@ -197,7 +197,7 @@ def snapshot(
 
     # Set main title
     fig.suptitle(
-        title, fontsize=14, y=0.97, fontname=fontname, fontweight="bold", color="black"
+        title, fontsize=14, y=0.97, fontname=fontname, fontweight="bold", color="#325C81"
     )
 
     fig.set_facecolor("white")
@@ -453,7 +453,7 @@ def earnings(
         y=0.95,
         fontname=fontname,
         fontweight="bold",
-        color="black",
+        color="#325C81",
     )
 
     # Add subtitle with date range and P&L information
@@ -1751,7 +1751,7 @@ def monthly_heatmap(
             y=0.995,
             fontname=fontname,
             fontweight="bold",
-            color="black",
+            color="#325C81",
         )
         # Calculate benchmark monthly returns
         benchmark = (
@@ -1782,7 +1782,7 @@ def monthly_heatmap(
             y=0.995,
             fontname=fontname,
             fontweight="bold",
-            color="black",
+            color="#325C81",
         )
 
         # Create heatmap with monthly returns
